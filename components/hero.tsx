@@ -34,10 +34,8 @@ export default function Hero() {
             return
         }
         
-        // User is authenticated, handle search
-        // You can implement your search logic here
-        console.log("Searching for:", searchQuery)
-        // Example: router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
+        // User is authenticated, redirect to jobs page with search query
+        router.push(`/jobs?query=${encodeURIComponent(searchQuery)}`)
     }
 
     return (
