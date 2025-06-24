@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCompanyByName, updateCompany } from '@/lib/db';
 
 // Get company profile
-export async function GET(request: NextRequest, { params }: { params: { 'company-name': string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ 'company-name': string }> }) {
     try {
-        const companyName = params['company-name'];
+        const { 'company-name': companyName } = await params;
         const company = await getCompanyByName(companyName);
         return NextResponse.json(company);
     } catch (error) {
@@ -14,9 +14,9 @@ export async function GET(request: NextRequest, { params }: { params: { 'company
 }
 
 // Change company profile
-export async function PUT(request: NextRequest, { params }: { params: { 'company-name': string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ 'company-name': string }> }) {
     try {
-        const companyName = params['company-name'];
+        const { 'company-name': companyName } = await params;
         const body = await request.json();
         const updatedCompany = await updateCompany(companyName, body);
         return NextResponse.json(updatedCompany);
