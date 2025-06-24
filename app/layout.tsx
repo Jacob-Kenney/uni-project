@@ -5,10 +5,12 @@ import { SessionProvider } from "next-auth/react";
 
 // Define fonts
 const body = Lexend({
-  variable: "--font-lexend"
+  variable: "--font-lexend",
+  subsets: ["latin"]
 })
 const brand = Comfortaa({
-  variable: "--font-comfortaa"
+  variable: "--font-comfortaa",
+  subsets: ["latin"]
 })
 
 // Layout template
