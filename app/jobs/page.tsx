@@ -1,10 +1,10 @@
 "use client";
 import JobBoard from "@/components/job-board";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { job } from "@/types/job";
 import { useSearchParams } from "next/navigation";
 
-export default function Page() {
+function JobsContent() {
     const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState<job[]>([]);
     const searchParams = useSearchParams();
@@ -42,5 +42,19 @@ export default function Page() {
                 <JobBoard jobs={jobs} />
             )}
         </div>
+    );
+}
+
+export default function Page() {
+    return (
+        <Suspense fallback={
+            <div className="container mx-auto py-8">
+                <div className="flex justify-center items-center min-h-[400px]">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>
+                </div>
+            </div>
+        }>
+            <JobsContent />
+        </Suspense>
     );
 }
