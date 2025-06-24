@@ -2,7 +2,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { X, Menu, LogOut, User } from "lucide-react";
+import { X, Menu, User } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 
 export default function Header() {

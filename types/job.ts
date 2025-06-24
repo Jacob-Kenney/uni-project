@@ -10,5 +10,4 @@ export interface job {
     status: "active" | "expired" | "filled" | "draft";
     impact_score: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
     green_score: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-    position: string;
 }
