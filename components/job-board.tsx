@@ -1,6 +1,7 @@
-import { MapPin, Calendar, Link } from "lucide-react";
+import { MapPin, Calendar } from "lucide-react";
 import { Card } from "./ui/card";
 import { job } from "@/types/job";
+import Link from "next/link"
 
 export default function JobBoard({ jobs }: { jobs: job[] }) {
     return (
@@ -22,7 +23,11 @@ export default function JobBoard({ jobs }: { jobs: job[] }) {
                                         <p className="text-gray-600 text-sm">{job.business_name}</p>
                                     </div>
                                 </div>
-                                <p className="text-gray-600 text-sm mb-4 leading-relaxed">{job.description}</p>
+                                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                                    {job.description.length > 200 
+                                        ? `${job.description.slice(0, 200)}...` 
+                                        : job.description}
+                                </p>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center space-x-6 text-xs text-gray-500">
                                         {job.location ? (
