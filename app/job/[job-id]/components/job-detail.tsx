@@ -24,7 +24,7 @@ export function JobDetail({ job }: JobDetailProps) {
                                 {job.location? (
                                     <div className="flex items-center">
                                         <MapPin className="w-4 h-4 mr-1" />
-                                        {job.location}
+                                        <p>{job.location}</p>
                                     </div>
                                 ) : (<></>)}
                             </div>
