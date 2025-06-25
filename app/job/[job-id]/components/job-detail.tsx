@@ -10,13 +10,13 @@ interface JobDetailProps {
 
 export function JobDetail({ job }: JobDetailProps) {
     return (
-        <div className="container mx-auto px-4 py-12">
+        <div className="max-w-3xl container mx-auto px-4 py-12">
             <div className="grid grid-cols-1 gap-12">
                 {/* Main Content */}
                 <div className="space-y-8">
                     {/* Job Header */}
                     <div>
-                        <div className="max-w-3xl flex items-start space-x-4 mb-6">
+                        <div className="flex items-start space-x-4 mb-6">
                             <div className="flex-1">
                             <h1 className="text-3xl font-light text-gray-900 mb-2">{job.title}</h1>
                             <p className="text-lg text-gray-600 mb-4">{job.business_name}</p>
