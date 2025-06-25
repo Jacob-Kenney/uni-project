@@ -11,7 +11,7 @@ interface JobDetailProps {
 export function JobDetail({ job }: JobDetailProps) {
     return (
         <div className="container mx-auto px-4 py-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 gap-12">
                 {/* Main Content */}
                 <div className="space-y-8">
                     {/* Job Header */}
