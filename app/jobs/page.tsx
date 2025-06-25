@@ -7,7 +7,7 @@ import { job } from "@/types/job";
 import { useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 
-export default function Page() {
+function JobList() {
     const [pageSearch, setPageSearch] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState<job[]>([]);
@@ -52,19 +52,10 @@ export default function Page() {
     };
 
     return (
-        <Suspense fallback={
-            <div className="container mx-auto py-8">
-                <div className="flex justify-center items-center min-h-[400px]">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>
-                </div>
-            </div>
-        }>
-            
             <div className="container mx-auto py-8 font-body">
                 {/* Search bar */}
                 <div className="mb-12">
                     <div className="grid grid-cols-1 lg:grid-cols-9 gap-3">
-                        {/* ONLY CHANGE VALUES on submit. Do not change them all the time */}
                         <div className="lg:col-span-4 relative">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                             <Input
@@ -107,6 +98,19 @@ export default function Page() {
                     </div>
                 )}
             </div>
-        </Suspense>
     );
+}
+
+export default function Page() {
+    return (
+        <Suspense fallback={
+            <div className="container mx-auto py-8">
+                <div className="flex justify-center items-center min-h-[400px]">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>
+                </div>
+            </div>
+        }>
+            <JobList/>
+        </Suspense>
+    )
 }
