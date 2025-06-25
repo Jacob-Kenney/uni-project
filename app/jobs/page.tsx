@@ -52,17 +52,16 @@ function JobList() {
     };
 
     return (
-            <div className="container mx-auto py-8 font-body">
+            <div className="pt-24 container mx-auto py-8 font-body">
                 {/* Search bar */}
-                <div className="mb-12">
+                <div className="">
                     <div className="grid grid-cols-1 lg:grid-cols-9 gap-3">
-                        <div className="lg:col-span-4 relative">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <div className="lg:col-span-4">
                             <Input
                                 placeholder="Search Jobs"
                                 value={inputQuery}
                                 onChange={(e) => setInputQuery(e.target.value)}
-                                className="pl-10 border-brand-primary/50 focus:brand-primary focus:ring-0 h-11"
+                                className="border-brand-primary/50 focus:brand-primary focus:ring-0 h-11"
                             />
                         </div>
                         <div className="lg:col-span-2">
@@ -82,18 +81,19 @@ function JobList() {
                             />
                         </div>
                         {/* Search submit button */}
-                        <button className="text-lg bg-brand-primary hover:bg-brand-primary/70 text-white transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2" onClick={handleSearch}>
+                        <button className="text-lg bg-brand-primary hover:bg-brand-primary/70 text-white transition-all duration-300 hover:scale-102 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-11 px-4 py-2" onClick={handleSearch}>
                             Search
                         </button>
                     </div>
                 </div>
+                <div className="border-t border-brand-primary/30 my-6 mb-24"></div>
                 {/* Content */}
                 {isLoading ? (
                     <div className="flex justify-center items-center min-h-[400px]">
                         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>
                     </div>
                 ) : (
-                    <div className="mt-24">
+                    <div>
                         <JobBoard jobs={jobs} />
                     </div>
                 )}

@@ -10,7 +10,7 @@ export default function Header() {
     const { data: session, status } = useSession()
 
     return (
-        <header className="fixed w-full backdrop-blur-sm">
+        <header className="font-body fixed w-full backdrop-blur-sm">
             <div className="px-12 lg:px-24 xl:px-32 py-6">
                 <div className="flex items-center justify-between mx-auto">
                     {/* Logo section */}
@@ -26,8 +26,8 @@ export default function Header() {
                     </Link>
                     {/* Links */}
                     <div className="hidden md:flex items-center gap-8">
-                        <Link href="jobs?query=">
-                            All jobs
+                        <Link href="/jobs?query=">
+                            <p className="text-brand-primary">All jobs</p>
                         </Link>
                     </div>
 
