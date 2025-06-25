@@ -21,6 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>Greenleaf | Environmentally friendly job board</title>
+      </head>
       <body
         className={`${body.variable} ${brand.variable} antialiased`}
       >

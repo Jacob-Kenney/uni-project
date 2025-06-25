@@ -25,11 +25,11 @@ export default function Header() {
                         </div>
                     </Link>
                     {/* Links */}
-                    {/*
                     <div className="hidden md:flex items-center gap-8">
-                        
+                        <Link href="jobs?query=">
+                            All jobs
+                        </Link>
                     </div>
-                    */}
 
                     {/* Login / account management buttons */}
                     { status === "loading" ? (
