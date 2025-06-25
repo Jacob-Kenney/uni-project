@@ -1,6 +1,5 @@
 "use client";
 import { job } from "@/types/job";
-import { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

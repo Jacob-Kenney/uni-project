@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { Suspense } from "react"
 import { useParams } from "next/navigation";
 import { JobDetail } from "./components/job-detail"
+import { job } from "@/types/job";
 
 export default function JobPage() {
-  const [jobData, setJobData] = useState<any>(null);
+  const [jobData, setJobData] = useState<job | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const params = useParams();

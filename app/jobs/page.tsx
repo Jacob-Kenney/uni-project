@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState, Suspense } from "react";
 import { job } from "@/types/job";
 import { useSearchParams } from "next/navigation";
-import { Search } from "lucide-react";
 
 function JobList() {
     const [pageSearch, setPageSearch] = useState(false);
@@ -43,7 +42,7 @@ function JobList() {
         };
 
         fetchJobs();
-    }, [searchQuery, companySearch, locationSearch]);
+    }, [searchQuery, companySearch, locationSearch, pageSearch, searchParams]);
 
     const handleSearch = () => {
         setSearchQuery(inputQuery);
