@@ -13,7 +13,7 @@ export function JobDetail({ job }: JobDetailProps) {
         <div className="container mx-auto px-4 py-12">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 {/* Main Content */}
-                <div className="lg:col-span-2 space-y-8">
+                <div className="space-y-8">
                     {/* Job Header */}
                     <div>
                         <div className="flex items-start space-x-4 mb-6">
@@ -38,7 +38,7 @@ export function JobDetail({ job }: JobDetailProps) {
                         <p className="text-lg font-medium text-gray-900 leading-none tracking-tight">About this job</p>
                     </CardHeader>
                     <div className="flex flex-col px-6">
-                        <p className="text-gray-600 leading-relaxed">
+                        <p className="text-gray-600 leading-relaxed pb-4">
                             {job.description}
                         </p>
                     </div>

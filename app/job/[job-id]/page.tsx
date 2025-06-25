@@ -57,9 +57,9 @@ export default function JobPage() {
   }
 
   return (
-    <main className="min-h-screen pt-24">
+    <main className="min-h-screen mx-auto pt-24">
       <Suspense fallback={
-            <div className="container mx-auto py-8">
+            <div className="container py-8">
                 <div className="flex justify-center items-center min-h-[400px]">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>
                 </div>
