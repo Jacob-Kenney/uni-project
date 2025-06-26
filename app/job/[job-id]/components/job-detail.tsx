@@ -50,7 +50,7 @@ export function JobDetail({ job }: JobDetailProps) {
                     {/* Apply Section */}
                     <Card className="border-brand-primary/30">
                         <div className="p-6 space-y-4">
-                            <Link href={job.link}>
+                            <Link href={job.link} className="mb-4">
                                 <Button className="w-full bg-brand-primary hover:bg-brand-primary/70 transition-all duration-300 text-white h-12">
                                     Apply for this position    
                                 </Button>
