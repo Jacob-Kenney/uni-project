@@ -1,4 +1,4 @@
-import { MapPin, Calendar } from "lucide-react";
+import { MapPin, Calendar, Leaf } from "lucide-react";
 import { Card } from "./ui/card";
 import { job } from "@/types/job";
 import Link from "next/link"
@@ -19,10 +19,20 @@ export default function JobBoard({ jobs }: { jobs: job[] }) {
                         <Card key={job.id} className="border-brand-primary/30 hover:border-brand-primary/50 transition-colors p-6">
                             <div className="flex items-start justify-between">
                                 <div className="flex-1">
-                                    <div className="flex items-start mb-2">
+                                    <div className="flex items-start justify-between mb-2">
                                         <div>
                                             <h4 className="text-lg font-medium text-gray-900 mb-1">{job.title}</h4>
                                             <p className="text-gray-600 text-sm">{job.business_name}</p>
+                                        </div>
+                                        <div>
+                                            {/* Add your right-side content here */}
+                                            <div className="flex font-brand font-black text-brand-primary/80 text-sm items-center">
+                                                <Leaf className="w-3 h-3 mr-1"/>
+                                                Green score
+                                            </div>
+                                            <div className="flex font-black text-brand-primary items-center justify-center">
+                                                {job.green_score}
+                                            </div>
                                         </div>
                                     </div>
                                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">
@@ -34,9 +44,8 @@ export default function JobBoard({ jobs }: { jobs: job[] }) {
                                         <div className="flex items-center space-x-6 text-xs text-gray-500">
                                             {job.location ? (
                                                 <div className="flex items-center">
-                                                    <MapPin className="w-3 h-3 mr-1">
-                                                        {job.location}
-                                                    </MapPin>
+                                                    <MapPin className="w-3 h-3 mr-1"/>
+                                                    {job.location}
                                                 </div>
                                             ) : (
                                                 <></>
@@ -55,6 +64,11 @@ export default function JobBoard({ jobs }: { jobs: job[] }) {
                                                     Apply
                                                 </button>
                                         </Link>
+                                        {(job.green_score > 0) ? (
+                                            <></>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </div>
                                 </div>
                             </div>
