@@ -1,8 +1,9 @@
 "use client";
 import { job } from "@/types/job";
-import { Link, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface JobDetailProps {
     job: job;
