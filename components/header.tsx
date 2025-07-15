@@ -2,15 +2,17 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { X, Menu, User } from "lucide-react";
+import { X, Menu, User, Building } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { data: session, status } = useSession()
+    
+    const role = status === "authenticated" ? session?.user?.id?.split(":")[0] : undefined;
 
     return (
-        <header className="font-body fixed w-full backdrop-blur-sm">
+        <header className="font-body fixed w-full backdrop-blur-sm z-50">
             <div className="px-12 lg:px-24 xl:px-32 py-6">
                 <div className="flex items-center justify-between mx-auto">
                     {/* Logo section */}
@@ -54,9 +56,22 @@ export default function Header() {
                                 Sign out
                             </button>
                             {/* Link to user account management page (business or user) */}
-                            <Link href="/">
-                                <User size={16} />
-                            </Link>
+                            { role === "user" ? (
+                                <Link href={`/users/${session?.user?.id}`}>
+                                    <User size={16} />
+                                </Link>
+                            ) : (
+                                <>
+                                    <Link href="jobs/create">
+                                        <button className="text-lg bg-brand-primary hover:bg-brand-primary/70 text-white transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2">
+                                            Post a job
+                                        </button>
+                                    </Link>
+                                    <Link href={`/companies/${session?.user?.id}`}>
+                                        <Building size={16} />
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     )}
 
@@ -95,9 +110,22 @@ export default function Header() {
                                     Sign out
                                 </button>
                                 {/* Link to user account management page (business or user) */}
-                                <Link href="/">
-                                    <User size={16} />
-                                </Link>
+                                { role === "user" ? (
+                                    <Link href={`/users/${session?.user?.id}`}>
+                                        <User size={16} />
+                                    </Link>
+                                ) : (
+                                    <div>
+                                        <Link href="jobs/create">
+                                            <button className="justify-start text-lg bg-brand-primary hover:bg-brand-primary/70 text-white transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2">
+                                                Post a job
+                                            </button>
+                                        </Link>
+                                        <Link href={`/companies/${session?.user?.id}?edit=1`}>
+                                            <Building size={16} />
+                                        </Link>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>                

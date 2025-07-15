@@ -85,7 +85,6 @@ function JobList() {
                         </button>
                     </div>
                 </div>
-                <div className="border-t border-brand-primary/30 my-6 mb-24"></div>
                 {/* Content */}
                 {isLoading ? (
                     <div className="flex justify-center items-center min-h-[400px]">

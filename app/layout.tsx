@@ -2,6 +2,7 @@ import { Lexend, Comfortaa } from "next/font/google";
 import Header from "@/components/header";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import { auth } from "@/lib/auth";
 
 // Define fonts
 const body = Lexend({
@@ -14,11 +15,13 @@ const brand = Comfortaa({
 })
 
 // Layout template
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <head>
@@ -27,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${body.variable} ${brand.variable} antialiased`}
       >
-        <SessionProvider>
+        <SessionProvider session={session}>
           <Header />
           {children}
         </SessionProvider>

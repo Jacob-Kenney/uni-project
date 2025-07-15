@@ -6,12 +6,14 @@ import { Label } from "@/components/ui/label"
 import { signIn } from "next-auth/react"
 import Link from "next/link"
 import Image from 'next/image'
+import Cookies from "js-cookie";
 
 export function SignIn() {
     const [isVisible, setIsVisible] = useState(false);
     
     const resendAction = (formData: FormData) => {
         const email = formData.get("email") as string;
+        Cookies.set('userType', 'company', { expires: 1/24 });
         signIn("resend", { 
             email,
             redirectTo: "/"
@@ -97,7 +99,10 @@ export function SignIn() {
 
                         <div className="space-y-4">
                             <Button
-                            onClick={() => signIn("linkedin", {redirectTo: "/"})}
+                            onClick={() => {
+                                Cookies.set('userType', 'company', { expires: 1/24 });
+                                signIn("linkedin", {redirectTo: "/"})
+                            }}
                             variant="outline"
                             className="w-full flex items-center justify-center"
                             >
@@ -107,7 +112,26 @@ export function SignIn() {
                                 width={24}
                                 height={24}
                                 className="mr-2" />
-                                Sign in with Linikedin
+                                Sign in with LinkedIn
+                            </Button>
+                        </div>
+
+                        <div className="space-y-4">
+                            <Button
+                            onClick={() => {
+                                Cookies.set('userType', 'company', { expires: 1/24 });
+                                signIn("google", {redirectTo: "/"})
+                            }}
+                            variant="outline"
+                            className="w-full flex items-center justify-center"
+                            >
+                            <Image
+                                src="/ext/web_light_rd_na.svg"
+                                alt="Google"
+                                width={24}
+                                height={24}
+                                className="mr-2" />
+                                Sign in with Google
                             </Button>
                         </div>
 

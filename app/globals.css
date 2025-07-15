@@ -8,6 +8,10 @@
   --brand-primary-dark: #5A7A61;  /* darker variant */
   --brand-secondary: #31081F;
   --brand-dark: #042A2B;
+
+  /* Popover styles for dropdowns */
+  --popover: 0 0% 100%; /* white background */
+  --popover-foreground: 222.2 84% 4.9%; /* dark text */
 }
 
 @theme inline {

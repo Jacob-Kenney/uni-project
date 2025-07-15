@@ -100,7 +100,17 @@ export async function getCompanyByName(name: string) {
     return data as company;
 }
 
-// TODO: Improve recommendations
+export async function getCompanyById(id: string) {
+    const { data, error } = await supabase
+        .from('companies')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+    if (error) throw error;
+    return data as company;
+}
+
 // Currently gets all jobs for the target job by created_at -- limited to 20
 export async function getRecommendationsByUserID(id: string) {
     // Get user's target position
