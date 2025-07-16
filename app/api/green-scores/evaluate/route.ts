@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Get company information
-        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+        const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
         const companyResponse = await fetch(`${baseUrl}/api/companies/name:${businessName}`);
         const company = await companyResponse.json();
         if (!company.name) {
