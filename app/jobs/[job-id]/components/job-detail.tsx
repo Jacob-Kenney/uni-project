@@ -1,6 +1,6 @@
 "use client";
 import { job } from "@/types/job";
-import { MapPin, Link as LinkIcon, Edit, Send } from "lucide-react";
+import { MapPin, Link as LinkIcon, Edit, Send, Trash, Leaf } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 
 
 interface jobData {
@@ -40,6 +41,7 @@ export function JobDetail({ job }: JobDetailProps) {
     })
     const [errors, setErrors] = useState<FormErrors>({})
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const router = useRouter()
 
     useEffect(() => {
         const fetchCompanyData = async () => {
@@ -88,7 +90,22 @@ export function JobDetail({ job }: JobDetailProps) {
 
         setIsSubmitting(true)
 
-        // TODO: Create job object
+        // Get green score
+        const greenScoreResponse = await fetch(`/api/green-scores/evaluate`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ businessName: company?.name, title: formData.title, description: formData.description, location: formData.location }),
+        })
+        const greenScore = await greenScoreResponse.json()
+        if (!greenScore.score) {
+            console.error("Failed to get green score:", greenScore)
+            setIsSubmitting(false)
+            return
+        }
+
+        // Create job object
         const jobInfo = {
             id: job.id,
             created_at: job.created_at,
@@ -100,7 +117,7 @@ export function JobDetail({ job }: JobDetailProps) {
             location: formData.location || job.location,
             status: job.status,
             impact_score: job.impact_score,
-            green_score: job.green_score,
+            green_score: greenScore.score,
             link: formData.link || job.link,
         }
 
@@ -121,6 +138,19 @@ export function JobDetail({ job }: JobDetailProps) {
         }
         setEditing(false)
         setIsSubmitting(false)
+    }
+
+    // Handle job deletion
+    const handleDelete = async () => {
+        const deleteResponse = await fetch(`/api/jobs/${job.id}`, {
+            method: "DELETE",
+        })
+        const deletedJob = await deleteResponse.json()
+        if (!deletedJob.business_name) {
+            console.error("Failed to delete job:", deletedJob)
+            return
+        }
+        router.push("/jobs")
     }
 
     return (
@@ -167,8 +197,18 @@ export function JobDetail({ job }: JobDetailProps) {
                     </CardContent>
                 </Card>
 
-                {/* Submit button */}
-                <div className="flex items-end justify-end mt-8">
+                {/* Buttons */}
+                <div className={!isSubmitting ? "flex items-end gap-4 justify-between mt-8" : "flex items-end justify-end mt-8"}>
+                    {!isSubmitting && (
+                        <Button
+                            type="submit"
+                            className="bg-red-500 hover:bg-red-500/70 text-white"
+                            onClick={handleDelete}
+                        >
+                            <Trash className="w-4 h-4 mr-2" />
+                            Delete Job
+                        </Button>
+                    )}
                     <Button
                         type="submit"
                         className="bg-brand-primary hover:bg-brand-primary/70 text-white"
@@ -236,6 +276,26 @@ export function JobDetail({ job }: JobDetailProps) {
 
                 {/* Sidebar */}
                 <div className="space-y-8">
+                    {/* Green Score Section */}
+                    <Card className="border-brand-primary/30">
+                        <div className="p-6 space-y-4">
+                            <div className="text-center">
+                                <div className="flex font-brand font-black text-brand-primary/80 text-sm items-center justify-center mb-2">
+                                    <Leaf className="w-4 h-4 mr-2"/>
+                                    Green Score
+                                </div>
+                                <div className="flex font-black text-brand-primary text-2xl items-center justify-center mb-2">
+                                    {job.green_score || 'N/A'}
+                                </div>
+                                {job.green_score && job.green_score > 5 && (
+                                    <div className="flex font-black text-brand-primary items-center justify-center text-sm">
+                                        Green Job
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </Card>
+
                     {/* Apply Section */}
                     <Card className="border-brand-primary/30">
                         <div className="p-6 space-y-4 gap-4">

@@ -25,7 +25,6 @@ export default function JobBoard({ jobs }: { jobs: job[] }) {
                                             <p className="text-gray-600 text-sm">{job.business_name}</p>
                                         </div>
                                         <div>
-                                            {/* Add your right-side content here */}
                                             <div className="flex font-brand font-black text-brand-primary/80 text-sm items-center">
                                                 <Leaf className="w-3 h-3 mr-1"/>
                                                 Green score
@@ -33,6 +32,13 @@ export default function JobBoard({ jobs }: { jobs: job[] }) {
                                             <div className="flex font-black text-brand-primary items-center justify-center">
                                                 {job.green_score}
                                             </div>
+                                            {job.green_score > 5 ? (
+                                                <div className="flex font-black text-brand-primary items-center justify-center">
+                                                    Green job
+                                                </div>
+                                            ) : (
+                                                <></>
+                                            )}
                                         </div>
                                     </div>
                                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">
@@ -64,11 +70,6 @@ export default function JobBoard({ jobs }: { jobs: job[] }) {
                                                     Apply
                                                 </button>
                                         </Link>
-                                        {(job.green_score > 0) ? (
-                                            <></>
-                                        ) : (
-                                            <></>
-                                        )}
                                     </div>
                                 </div>
                             </div>

@@ -204,6 +204,7 @@ export default function Page() {
                                     <SelectValue placeholder="Select an industry" />
                                 </SelectTrigger>
                                 <SelectContent>
+                                    <SelectItem value="environmental">Environmental</SelectItem>
                                     <SelectItem value="agriculture">Agriculture</SelectItem>
                                     <SelectItem value="manufacturing">Manufacturing</SelectItem>
                                     <SelectItem value="energy">Energy</SelectItem>

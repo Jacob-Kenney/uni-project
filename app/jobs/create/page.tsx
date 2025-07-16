@@ -73,6 +73,26 @@ export default function Page() {
         const companyId = session?.user?.id
         const company = await fetch(`/api/companies/id:${companyId}`)
         const companyData = await company.json()
+        if (!companyData.name) {
+            console.error("Failed to get company information:", companyData)
+            setIsSubmitting(false)
+            return
+        }
+
+        // Get green score
+        const greenScoreResponse = await fetch(`/api/green-scores/evaluate`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ businessName: companyData.name, title: formData.title, description: formData.description, location: formData.location }),
+        })
+        const greenScore = await greenScoreResponse.json()
+        if (!greenScore.score) {
+            console.error("Failed to get green score:", greenScore)
+            setIsSubmitting(false)
+            return
+        }
 
         // Create job object
         const jobInfo = {
@@ -81,6 +101,7 @@ export default function Page() {
             description: formData.description,
             location: formData.location || '',
             status: "active",
+            green_score: greenScore.score,
         }
 
         // Create job in database

@@ -145,6 +145,7 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
                                                 <SelectValue placeholder="Select an industry" />
                                             </SelectTrigger>
                                             <SelectContent>
+                                                <SelectItem value="environmental">Environmental</SelectItem>
                                                 <SelectItem value="agriculture">Agriculture</SelectItem>
                                                 <SelectItem value="manufacturing">Manufacturing</SelectItem>
                                                 <SelectItem value="energy">Energy</SelectItem>

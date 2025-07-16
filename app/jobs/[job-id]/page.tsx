@@ -2,15 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { Suspense } from "react"
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { JobDetail } from "./components/job-detail"
 import { job } from "@/types/job";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 export default function JobPage() {
   const [jobData, setJobData] = useState<job | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const params = useParams();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchJobData = async () => {
@@ -57,7 +60,18 @@ export default function JobPage() {
   }
 
   return (
-    <main className="min-h-screen mx-auto pt-24">
+    <main className="max-w-3xl min-h-screen mx-auto pt-24">
+      <div className="container mx-auto">
+        <Button
+          onClick={() => router.back()}
+          variant="ghost"
+          className="mb-6 hover:bg-gray-100"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Go Back
+        </Button>
+      </div>
+      
       <Suspense fallback={
             <div className="container py-8">
                 <div className="flex justify-center items-center min-h-[400px]">
