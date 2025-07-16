@@ -12,13 +12,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 
-interface jobData {
-    title: string,
-    description: string,
-    location: string,
-    link?: string,
-}
-
 interface JobDetailProps {
     job: job;
 }
@@ -30,7 +23,6 @@ interface FormErrors {
 export default function JobDetail({ job }: JobDetailProps) {    
     const [company, setCompany] = useState<company | null>(null)
     const [greenScore, setGreenScore] = useState<number | null>(null);
-    const [loading, setLoading] = useState(false);
     const { data: session } = useSession();
     const [editable, setEditable] = useState(false)
     const [editing, setEditing] = useState(false)
@@ -61,7 +53,6 @@ export default function JobDetail({ job }: JobDetailProps) {
         const fetchGreenScore = async () => {
             if (!job.business_name || !session?.user?.id) return;
             
-            setLoading(true);
             try {
                 const response = await fetch('/api/green-scores/evaluate', {
                     method: 'POST',
@@ -82,8 +73,6 @@ export default function JobDetail({ job }: JobDetailProps) {
                 }
             } catch (error) {
                 console.error('Error fetching green score:', error);
-            } finally {
-                setLoading(false);
             }
         };
 

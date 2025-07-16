@@ -10,13 +10,6 @@ import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-interface jobData {
-    title: string,
-    description: string,
-    location: string,
-    link?: string,
-}
-
 const initialFormData =  {
     title: "",
     description: "",

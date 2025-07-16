@@ -161,7 +161,7 @@ export default function Page() {
                     <div className="space-y-6">
                         <div>
                             <h2 className="font-brand text-2xl font-gray-900 mb-2">Company Information</h2>
-                            <p className="text-gray-600">Please provide your company's basic information.</p>
+                            <p className="text-gray-600">Please provide your company&apos;s basic information.</p>
                         </div>
 
                         <div className="space-y-4">
@@ -196,7 +196,7 @@ export default function Page() {
                     <div className="space-y-6">
                         <div>
                             <h2 className="font-brand text-2xl font-gray-900 mb-2">Environmental Disclosure</h2>
-                            <p className="text-gray-600">Please provide your company's green scoring information.</p>
+                            <p className="text-gray-600">Please provide your company&apos;s green scoring information.</p>
                         </div>
                         <div>
                             <Label htmlFor="industry">Industry *</Label>

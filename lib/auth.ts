@@ -38,9 +38,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const cookieStore = await cookies();
             const userType = cookieStore.get('userType')?.value || 'user';
             
-            // Type cast to bypass TypeScript error
-            (user as any).userType = userType;
-
             // Check if account already exists of the other type
             if (userType === "user") {
                 // Check if company exists
@@ -86,7 +83,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 }
             }
 
-            return user as any;
+            return true;
         } catch (error) {
             console.error('Error in signIn callback:', error);
             return true;

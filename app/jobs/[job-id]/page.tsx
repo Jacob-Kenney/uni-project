@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Suspense } from "react"
 import { useParams, useRouter } from "next/navigation";
-import { JobDetail } from "./components/job-detail"
+import JobDetail from "./components/job-detail"
 import { job } from "@/types/job";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
