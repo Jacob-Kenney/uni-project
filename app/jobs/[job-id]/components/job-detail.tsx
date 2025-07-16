@@ -12,7 +12,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 
-
 interface jobData {
     title: string,
     description: string,
@@ -28,9 +27,11 @@ interface FormErrors {
     [key: string]: string
 }
 
-export function JobDetail({ job }: JobDetailProps) {    
+export default function JobDetail({ job }: JobDetailProps) {    
     const [company, setCompany] = useState<company | null>(null)
-    const { data: session, status } = useSession();
+    const [greenScore, setGreenScore] = useState<number | null>(null);
+    const [loading, setLoading] = useState(false);
+    const { data: session } = useSession();
     const [editable, setEditable] = useState(false)
     const [editing, setEditing] = useState(false)
     const [formData, setFormData] = useState({
@@ -54,7 +55,40 @@ export function JobDetail({ job }: JobDetailProps) {
             }
         }
         fetchCompanyData()
-    }, [])
+    }, [job.business_name, session?.user?.id])
+
+    useEffect(() => {
+        const fetchGreenScore = async () => {
+            if (!job.business_name || !session?.user?.id) return;
+            
+            setLoading(true);
+            try {
+                const response = await fetch('/api/green-scores/evaluate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        businessName: job.business_name,
+                        title: job.title,
+                        description: job.description,
+                        location: job.location,
+                    }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setGreenScore(data.greenScore);
+                }
+            } catch (error) {
+                console.error('Error fetching green score:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchGreenScore();
+    }, [job.business_name, job.title, job.description, job.location, session?.user?.id])
 
     // Validate form for errors
     const validateForm = (): boolean => {
@@ -90,21 +124,6 @@ export function JobDetail({ job }: JobDetailProps) {
 
         setIsSubmitting(true)
 
-        // Get green score
-        const greenScoreResponse = await fetch(`/api/green-scores/evaluate`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ businessName: company?.name, title: formData.title, description: formData.description, location: formData.location }),
-        })
-        const greenScore = await greenScoreResponse.json()
-        if (!greenScore.score) {
-            console.error("Failed to get green score:", greenScore)
-            setIsSubmitting(false)
-            return
-        }
-
         // Create job object
         const jobInfo = {
             id: job.id,
@@ -117,7 +136,7 @@ export function JobDetail({ job }: JobDetailProps) {
             location: formData.location || job.location,
             status: job.status,
             impact_score: job.impact_score,
-            green_score: greenScore.score,
+            green_score: greenScore,
             link: formData.link || job.link,
         }
 
@@ -168,7 +187,7 @@ export function JobDetail({ job }: JobDetailProps) {
                         <div className="space-y-6">
                             <div>
                                 <h2 className="font-brand text-2xl font-gray-900 mb-2">Job Information</h2>
-                                <p className="text-gray-600">Please provide your job's basic information.</p>
+                                <p className="text-gray-600">Please provide your job&apos;s basic information.</p>
                             </div>
 
                             <div className="space-y-4">
@@ -285,13 +304,16 @@ export function JobDetail({ job }: JobDetailProps) {
                                     Green Score
                                 </div>
                                 <div className="flex font-black text-brand-primary text-2xl items-center justify-center mb-2">
-                                    {job.green_score || 'N/A'}
+                                    {greenScore || 'N/A'}
                                 </div>
-                                {job.green_score && job.green_score > 5 && (
+                                {greenScore && greenScore > 5 && (
                                     <div className="flex font-black text-brand-primary items-center justify-center text-sm">
                                         Green Job
                                     </div>
                                 )}
+                                <p className="text-sm text-muted-foreground">
+                                    This job&apos;s environmental impact score based on the company and role.
+                                </p>
                             </div>
                         </div>
                     </Card>

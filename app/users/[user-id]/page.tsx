@@ -9,7 +9,7 @@ import { user } from "@/types/user";
 export default function UserPage() {
     const [user, setUser] = useState<user | null>(null);
     const params = useParams();
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     
     // Check if this is the current user's profile
     const editable = session?.user?.id === decodeURIComponent(params['user-id'] as string);

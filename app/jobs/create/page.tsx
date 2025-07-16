@@ -28,11 +28,11 @@ interface FormErrors {
     [key: string]: string
 }
 
-export default function Page() {
+export default function CreateJobPage() {
     const [formData, setFormData] = useState(initialFormData)
-    const [errors, setErrors] = useState<FormErrors>({})
     const [isSubmitting, setIsSubmitting] = useState(false) 
-    const { data: session, status } = useSession()
+    const [errors, setErrors] = useState<FormErrors>({})
+    const { data: session } = useSession()
     const router = useRouter()
 
     // Validate form for errors
@@ -138,7 +138,7 @@ export default function Page() {
                         <div className="space-y-6">
                             <div>
                                 <h2 className="font-brand text-2xl font-gray-900 mb-2">Job Information</h2>
-                                <p className="text-gray-600">Please provide your job's basic information.</p>
+                                <p className="text-gray-600">Please provide your job&apos;s basic information.</p>
                             </div>
 
                             <div className="space-y-4">
@@ -151,6 +151,9 @@ export default function Page() {
                                     <Label htmlFor="description">Job Description *</Label>
                                     <Textarea id="description" rows={4} value={formData.description} onChange={(e) => handleInputChange('description', e.target.value)} placeholder="Describe your job" className={errors.description ? "border-red-300" : "border-brand-primary/30 hover:border-brand-primary/50"}/>
                                     {errors.description && <p className="text-red-500">{errors.description}</p>}
+                                    <p className="text-sm text-muted-foreground">
+                                        Tell candidates about the role&apos;s responsibilities and requirements.
+                                    </p>
                                 </div>
                                 <div>
                                     <Label htmlFor="location">Location *</Label>

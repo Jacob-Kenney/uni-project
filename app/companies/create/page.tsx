@@ -48,7 +48,7 @@ export default function Page() {
     const [formData, setFormData] = useState(initialFormData)
     const [isSubmitting, setIsSubmitting] = useState(false) 
     const [errors, setErrors] = useState<FormErrors>({})
-    const { data: session, status } = useSession()
+    const { data: session } = useSession()
     const router = useRouter()
 
     // Number of steps in the form
@@ -140,7 +140,8 @@ export default function Page() {
     
             // Redirect to company page
             router.replace(`/companies/${companyId}`)
-        } catch (error) {
+        } catch (err) {
+            console.error('Error creating company:', err);
             toast({
                 title: "Error creating company",
                 description: "Please try again or contact support if the problem persists.",

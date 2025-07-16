@@ -14,9 +14,23 @@ interface UserProfileProps {
     editable: boolean;
 }
 
+interface TempData {
+    name?: string;
+    email?: string;
+    currentPosition?: string;
+    targetPosition?: string;
+    location?: string;
+    summary?: string;
+    linkedin?: string;
+}
+
 export default function UserProfile({ content, editable }: UserProfileProps) {
     const [editing, setEditing] = useState<boolean>(false)
-    const [tempData, setTempData] = useState<any>({})
+    const [tempData, setTempData] = useState<TempData>({})
+
+    const handleInputChange = (field: keyof TempData, value: string) => {
+        setTempData({ ...tempData, [field]: value });
+    };
 
     async function handleSave() {
         if (content?.id) {
@@ -73,7 +87,7 @@ export default function UserProfile({ content, editable }: UserProfileProps) {
                                         id="name"
                                         className="border-brand-primary/30 hover:border-brand-primary/50"
                                         value={tempData.name || content?.name || ''}
-                                        onChange={(e) => setTempData({ ...tempData, name: e.target.value})}
+                                        onChange={(e) => handleInputChange('name', e.target.value)}
                                     />
                                 </div>
                                 {/* Email */}
@@ -84,7 +98,7 @@ export default function UserProfile({ content, editable }: UserProfileProps) {
                                         type="email"
                                         className="border-brand-primary/30 hover:border-brand-primary/50"
                                         value={tempData.email || content?.email || ''}
-                                        onChange={(e) => setTempData({ ...tempData, email: e.target.value })}
+                                        onChange={(e) => handleInputChange('email', e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -96,7 +110,7 @@ export default function UserProfile({ content, editable }: UserProfileProps) {
                                     id="currentPosition"
                                     className="border-brand-primary/30 hover:border-brand-primary/50"
                                     value={tempData.currentPosition || content?.current_position || ''}
-                                    onChange={(e) => setTempData({ ...tempData, currentPosition: e.target.value })}
+                                    onChange={(e) => handleInputChange('currentPosition', e.target.value)}
                                 />
                             </div>
                             {/* Target position */}
@@ -106,7 +120,7 @@ export default function UserProfile({ content, editable }: UserProfileProps) {
                                     id="targetPosition"
                                     className="border-brand-primary/30 hover:border-brand-primary/50"
                                     value={tempData.targetPosition || content?.target_position || ''}
-                                    onChange={(e) => setTempData({ ...tempData, targetPosition: e.target.value })}
+                                    onChange={(e) => handleInputChange('targetPosition', e.target.value)}
                                 />
                             </div>
 
@@ -118,7 +132,7 @@ export default function UserProfile({ content, editable }: UserProfileProps) {
                                     rows={4}
                                     className="border-brand-primary/30 hover:border-brand-primary/50"
                                     value={tempData.summary || content?.summary || ''}
-                                    onChange={(e) => setTempData({ ...tempData, summary: e.target.value })}
+                                    onChange={(e) => handleInputChange('summary', e.target.value)}
                                 />
                             </div>
 
@@ -131,7 +145,7 @@ export default function UserProfile({ content, editable }: UserProfileProps) {
                                         id="location"
                                         className="border-brand-primary/30 hover:border-brand-primary/50"
                                         value={tempData.location || content?.location || ''}
-                                        onChange={(e) => setTempData({ ...tempData, location: e.target.value })}
+                                        onChange={(e) => handleInputChange('location', e.target.value)}
                                     />
                                 </div>
                                 {/* LinkedIn */}
@@ -141,7 +155,7 @@ export default function UserProfile({ content, editable }: UserProfileProps) {
                                         id="linkedin"
                                         className="border-brand-primary/30 hover:border-brand-primary/50"
                                         value={tempData.linkedin || content?.linkedin || ''}
-                                        onChange={(e) => setTempData({ ...tempData, linkedin: e.target.value })}
+                                        onChange={(e) => handleInputChange('linkedin', e.target.value)}
                                     />
                                 </div>
                             </div>

@@ -10,7 +10,7 @@ import CompanyDetail from "./components/company-detail";
 export default function Page() {
   const [company, setCompany] = useState<company | null>(null);
   const params = useParams();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -19,28 +19,33 @@ export default function Page() {
   
 
   useEffect(() => {
-    setLoading(true);
-    const fetchCompanyData = async () => {
-      try {
-        // Use API route
-        const response = await fetch(`/api/companies/id:${params['company-id']}`);
-        const companySearch = await response.json();
-        setCompany(companySearch);
-        // Check if company account needs onboarding
-        if (companySearch?.name === companySearch?.id) {
-          // Needs onboarding
-          if (editable) {
-            router.replace("/companies/create");
-          }
+    if (params?.['company-id']) {
+      const fetchCompanyData = async () => {
+        try {
+          // Use API route
+          const response = await fetch(`/api/companies/id:${params['company-id']}`);
+          const companySearch = await response.json();
+          setCompany(companySearch);
+        } catch (error) {
+          console.error('Error fetching company data:', error);
         }
-      } catch (error) {
-        console.error('Error fetching company data:', error);
-      }
-    };
-    
-    fetchCompanyData();
-    setLoading(false);
+      };
+      
+      fetchCompanyData();
+    }
   }, [params]);
+
+  useEffect(() => {
+    if (company && editable && router) {
+      if (company.name === company.id) {
+        router.push('/companies/create');
+      }
+    }
+  }, [company, editable, router]);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   if (!company) return null;
 

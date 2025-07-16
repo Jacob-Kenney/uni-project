@@ -33,7 +33,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     verifyRequest: "/"
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, profile }) {
         try {
             const cookieStore = await cookies();
             const userType = cookieStore.get('userType')?.value || 'user';
@@ -86,7 +86,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 }
             }
 
-            return true;
+            return user as any;
         } catch (error) {
             console.error('Error in signIn callback:', error);
             return true;

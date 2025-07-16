@@ -15,10 +15,22 @@ interface CompanyDetailProps {
     editable: boolean;
 }
 
+interface TempData {
+    name?: string;
+    description?: string;
+    industry?: string;
+    location?: string;
+    website?: string;
+    companySize?: string;
+    ESGScore?: number;
+    BCorp?: boolean;
+    contactEmail?: string;
+}
+
 export default function CompanyDetail({ company, editable }: CompanyDetailProps) {
     const [editing, setEditing] = useState<boolean>(false)
     const [jobs, setJobs] = useState<job[]>([])
-    const [tempData, setTempData] = useState<any>({})
+    const [tempData, setTempData] = useState<TempData>({})
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -75,6 +87,10 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
         }
     }
 
+    const handleInputChange = (field: keyof TempData, value: string | number | boolean) => {
+        setTempData({ ...tempData, [field]: value });
+    };
+
     return (
         <>
             <Card className="border-brand-primary/50 p-6 mt-6">
@@ -91,7 +107,7 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
                                             id="name"
                                             className="border-brand-primary/30 hover:border-brand-primary/50"
                                             value={tempData.name || company?.name || ''}
-                                            onChange={(e) => setTempData({ ...tempData, name: e.target.value})}
+                                            onChange={(e) => handleInputChange('name', e.target.value)}
                                         />
                                     </div>
                                     {/* Email */}
@@ -102,7 +118,7 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
                                             type="email"
                                             className="border-brand-primary/30 hover:border-brand-primary/50"
                                             value={tempData.contactEmail || company?.contact_email || ''}
-                                            onChange={(e) => setTempData({ ...tempData, contactEmail: e.target.value })}
+                                            onChange={(e) => handleInputChange('contactEmail', e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -115,7 +131,7 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
                                         rows={4}
                                         className="border-brand-primary/30 hover:border-brand-primary/50"
                                         value={tempData.description || company?.description || ''}
-                                        onChange={(e) => setTempData({ ...tempData, description: e.target.value })}
+                                        onChange={(e) => handleInputChange('description', e.target.value)}
                                     />
                                 </div>
 
@@ -134,13 +150,13 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
                                             id="location"
                                             className="border-brand-primary/30 hover:border-brand-primary/50"
                                             value={tempData.location || company?.location || ''}
-                                            onChange={(e) => setTempData({ ...tempData, location: e.target.value })}
+                                            onChange={(e) => handleInputChange('location', e.target.value)}
                                         />
                                     </div>
                                     {/* Industry */}
                                     <div>
                                         <Label htmlFor="industry">Industry *</Label>
-                                        <Select value={tempData.industry} onValueChange={(value) => setTempData({ ...tempData, industry: value })}>
+                                        <Select value={tempData.industry} onValueChange={(value) => handleInputChange('industry', value)}>
                                             <SelectTrigger className="border-brand-primary/30 hover:border-brand-primary/50">
                                                 <SelectValue placeholder="Select an industry" />
                                             </SelectTrigger>
@@ -170,12 +186,12 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
                                             type="url"
                                             className="border-brand-primary/30 hover:border-brand-primary/50"
                                             value={tempData.website || company?.website || ''}
-                                            onChange={(e) => setTempData({ ...tempData, website: e.target.value })}
+                                            onChange={(e) => handleInputChange('website', e.target.value)}
                                         />
                                     </div>
                                     <div>
                                         <Label htmlFor="company_size">Company Size</Label>
-                                        <Select value={tempData.companySize || company?.company_size || ''} onValueChange={(value) => setTempData({ ...tempData, companySize: value })}>
+                                        <Select value={tempData.companySize || company?.company_size || ''} onValueChange={(value) => handleInputChange('companySize', value)}>
                                             <SelectTrigger className="border-brand-primary/30 hover:border-brand-primary/50">
                                                 <SelectValue placeholder="Select a company size" />
                                             </SelectTrigger>
@@ -196,8 +212,8 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
                                         id="ESG_score"
                                         type="number"
                                         className="border-brand-primary/30 hover:border-brand-primary/50"
-                                        value={tempData.ESG_score || company?.ESG_score || ''}
-                                        onChange={(e) => setTempData({ ...tempData, ESG_score: e.target.value })}
+                                        value={tempData.ESGScore || company?.ESG_score || ''}
+                                        onChange={(e) => handleInputChange('ESGScore', e.target.valueAsNumber)}
                                     />
                                 </div>
                                 {/* B Corp */}
@@ -206,8 +222,8 @@ export default function CompanyDetail({ company, editable }: CompanyDetailProps)
                                     <Checkbox
                                         id="B_corp"
                                         className="border-brand-primary/30 hover:border-brand-primary/50"
-                                        checked={tempData.B_corp || company?.B_corp || false}
-                                        onCheckedChange={(checked) => setTempData({ ...tempData, B_corp: checked })}
+                                        checked={tempData.BCorp || company?.B_corp || false}
+                                        onCheckedChange={(checked) => handleInputChange('BCorp', checked)}
                                     />
                                 </div>
                                 
