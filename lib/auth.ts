@@ -37,12 +37,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
             const cookieStore = await cookies();
             const userType = cookieStore.get('userType')?.value || 'user';
+            console.log("auth userType: ", userType); // TEMP
             
             // Check if account already exists of the other type
             if (userType === "user") {
                 // Check if company exists
                 try {
-                    await getCompanyById(`user:${user.id}`);
+                    await getCompanyById(`company:${user.id}`);
                     return false;
                 } catch {
                     // Company doesn't exist, continue
@@ -50,7 +51,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             } else if (userType === "company") {
                 // Check if user exists
                 try {
-                    await getUserByID(`company:${user.id} `);
+                    await getUserByID(`user:${user.id} `);
                     return false;
                 } catch {
                     // User doesn't exist, continue
