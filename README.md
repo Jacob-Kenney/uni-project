@@ -1,11 +1,3 @@
-.env:
-AUTH_SECRET=bXyKo9GxBs+X5HPy8vPBGrNe/kAPCTeagN7XgNBxWdA
-SUPABASE_URL=https://ceipfhosvmyzrxcisorr.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlaXBmaG9zdm15enJ4Y2lzb3JyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3NTY3MzIsImV4cCI6MjA2NTMzMjczMn0.H3-QUbdhImtlaM44g6WBjsMrSpeLRrIuA84mSTa1HYk 
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlaXBmaG9zdm15enJ4Y2lzb3JyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0OTc1NjczMiwiZXhwIjoyMDY1MzMyNzMyfQ.EIbqyZAMCTAuSO6aExxvsgjjBYKUnHOOJjeh0U6dSSI
-AUTH_RESEND_KEY=re_U6EturMB_3nViar7i4jPgrhNBEG6XdgX3
-UPSTASH_REDIS_URL=https://big-ferret-21869.upstash.io
-UPSTASH_REDIS_TOKEN=AVVtAAIjcDEyNjIyMWRjYjhmZDA0NTQ2ODhlNDk4ZmMzYTc4YmRkOXAxMA
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
